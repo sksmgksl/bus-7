@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>버스 시간표와 게시판</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+        .container {
+            padding: 20px;
+        }
+        .posts, .bus-info {
+            margin-bottom: 30px;
+        }
+        .post {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #fff;
+        }
+        .post h3 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+        .bus-info input, .bus-info button {
+            padding: 10px;
+            font-size: 1em;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>버스 시간표와 게시판</h1>
+</header>
+
+<div class="container">
+    <h2>게시판</h2>
+    <div class="posts">
+        {% for post in posts %}
+        <div class="post">
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.content }}</p>
+            <small>{{ post.date }}</small>
+        </div>
+        {% endfor %}
+    </div>
+
+    <h2>버스 시간표 확인</h2>
+    <div class="bus-info">
+        <form method="POST">
+            <label for="end_time">수업 종료 시간 (HH:MM):</label>
+            <input type="text" id="end_time" name="end_time" required>
+            <button type="submit">버스 정보 확인</button>
+        </form>
+
+        {% if bus_info %}
+        <p>{{ bus_info }}</p>
+        {% endif %}
+    </div>
+
+    <a href="{{ url_for('new_post') }}">새 게시글 작성</a>
+</div>
+
+</body>
+</html>
